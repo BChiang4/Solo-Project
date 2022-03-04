@@ -6,48 +6,65 @@ SneakerController.findAllSneakers = (req,res,next)=>{
         if(err){
         console.log('error');
         }
-        console.log(result);
+        // console.log(result);
         res.locals.sneakers = result;
         return next();
     })
 }
 
 
-SneakerController.findJordans = (req,res,next)=>{
-    Sneakers.find({brand:'Jordan'},(err,result)=>{
-        if(err){
-        console.log('error');
-        }
-        res.locals.jordans = result;
+// SneakerController.findJordans = (req,res,next)=>{
+//     Sneakers.find({brand:'Jordan'},(err,result)=>{
+//         if(err){
+//         console.log('error');
+//         }
+//         res.locals.jordans = result;
+//         return next();
+//     })
+// }
+// SneakerController.findAdidas = (req,res,next)=>{
+//     Sneakers.find({brand:'adidas'},(err,result)=>{
+//         if(err){
+//         console.log('error');
+//         }
+//         res.locals.adidas = result;
+//         return next();
+//     })
+// }
+// SneakerController.findNike = (req,res,next)=>{
+//     Sneakers.find({brand:'Nike'},(err,result)=>{
+//         if(err){
+//         console.log('error');
+//         }
+//         res.locals.nike = result;
+//         return next();
+//     })
+// }
+// SneakerController.findConverse = (req,res,next)=>{
+//     Sneakers.find({brand:'Converse'},(err,result)=>{
+//         if(err){
+//         console.log('error');
+//         }
+//         console.log(result);
+//         res.locals.converse = result;
+//         return next();
+//     })
+// }
+
+SneakerController.findByBrand = (req,res,next) => {
+    console.log(req.params.brand);
+    const {brand} = req.params.brand;
+    Sneakers.findAll({brand : brand})
+    .then(doc=>{
+        res.locals.shoes = doc;
         return next();
     })
-}
-SneakerController.findAdidas = (req,res,next)=>{
-    Sneakers.find({brand:'adidas'},(err,result)=>{
-        if(err){
-        console.log('error');
-        }
-        res.locals.adidas = result;
-        return next();
-    })
-}
-SneakerController.findNike = (req,res,next)=>{
-    Sneakers.find({brand:'Nike'},(err,result)=>{
-        if(err){
-        console.log('error');
-        }
-        res.locals.nike = result;
-        return next();
-    })
-}
-SneakerController.findConverse = (req,res,next)=>{
-    Sneakers.find({brand:'Converse'},(err,result)=>{
-        if(err){
-        console.log('error');
-        }
-        console.log(result);
-        res.locals.converse = result;
-        return next();
+    .catch(err =>{
+        return next({
+            log: 'Express error handler caught error inside SneakerController.findByBrand',
+            status: 400,
+            message : {err: 'Could not find shoe brand'},
+        })
     })
 }
 

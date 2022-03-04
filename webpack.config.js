@@ -39,10 +39,10 @@ module.exports = {
         hot: true,
         proxy : {
             '/sneakers' : 'http://localhost:3000',
-            '/jordans' : 'http://localhost:3000',
-            '/adidas' : 'http://localhost:3000',
-            '/nike' : 'http://localhost:3000',
-            '/converse' : 'http://localhost:3000'
+            '/sneakers/Jordan' : 'http://localhost:3000',
+            '/sneakers/adidas' : 'http://localhost:3000',
+            '/sneakers/Nike' : 'http://localhost:3000',
+            '/sneakers/Converse' : 'http://localhost:3000'
         }
     }
 }

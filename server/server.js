@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const sneaker = require('./models/model.js');
+// const sneaker = require('./models/model.js');
 // require our routers
-const router = express.Router();
+const sneakerRouter = express.Router();
 const PORT = 3000;
 const Controller = require('./controllers/controller.js');
 
@@ -15,33 +15,39 @@ mongoose.connection.once('open',()=>{
     console.log(err);
 });
 
-app.use('/', router);
+app.use('/sneakers', sneakerRouter);
 
-// handler to handle json objects
+// body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.get('/sneakers',Controller.findAllSneakers, (req,res)=>{
+sneakerRouter.get('/',Controller.findAllSneakers, (req,res)=>{
     return res.status(200).json(res.locals.sneakers);
 })
 
-app.get('/jordans', Controller.findJordans, (req,res)=>{
-    return res.status(200).json(res.locals.jordans);
-})
+// app.get('/jordans', Controller.findJordans, (req,res)=>{
+//     return res.status(200).json(res.locals.jordans);
+// })
 
 
-app.get('/adidas', Controller.findAdidas, (req,res)=>{
-    return res.status(200).json(res.locals.adidas);
-})
+// app.get('/adidas', Controller.findAdidas, (req,res)=>{
+//     return res.status(200).json(res.locals.adidas);
+// })
 
-app.get('/nike', Controller.findNike, (req,res)=>{
-    return res.status(200).json(res.locals.nike);
-})
+// app.get('/nike', Controller.findNike, (req,res)=>{
+//     return res.status(200).json(res.locals.nike);
+// })
 
 
-app.get('/converse', Controller.findConverse, (req,res)=>{
-    return res.status(200).json(res.locals.converse);
+// app.get('/converse', Controller.findConverse, (req,res)=>{
+//     return res.status(200).json(res.locals.converse);
+// })
+
+
+sneakerRouter.get('/:brand', Controller.findByBrand, (req,res)=>{
+    console.log('working');
+    return res.status(200).json(res.locals.shoes);
 })
 // handle post request 
 
@@ -62,6 +68,7 @@ app.get('/converse', Controller.findConverse, (req,res)=>{
 //unknown route handler
 app.use((req,res)=>{
     res.sendStatus(404);
+    console.log('unknown route handler');
 })
 
 //Global error handler
@@ -71,9 +78,8 @@ app.use((err,req,res,next)=>{
         status: 400,
         message: {err: 'An error occured'}
     };
-    const errorObj = Object.assign({},defaultErr,err);
-    console.log(erroObj);
-    return res.status(errorObj.status).json(errorObj.message);
+    let errorObj = Object.assign({},defaultErr,err);
+    return res.sendStatus(errorObj.status).json({err: errorObj.message});
 })
 
 

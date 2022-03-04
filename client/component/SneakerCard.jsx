@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 
 
 // define sneakerCard component
 
 const SneakerCard = (props)=>{
 const {card} = props;
+const [count,setCount] = useState(0);
 
       return (
         <div style={styles.container}>
@@ -14,9 +15,10 @@ const {card} = props;
             <p>Colorway: {card.colorway}</p>
             <div className='money'>
             <p>Retail Price: {card.retailPrice} USD</p> 
+            {count}
             </div>
             </div>
-                <button onClick={()=>myFunction}>ADD TO CART</button>   
+                <button onClick={()=>setCount(count+1)}>ADD TO CART</button>   
         </div>
       )
 }
