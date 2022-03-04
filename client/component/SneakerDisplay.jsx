@@ -2,7 +2,7 @@ import React , { useState, useEffect}  from 'react';
 import SneakerCard from './SneakerCard';
 
 
-
+// functional SneakerDisplay component
 function SneakerDisplay(){
   const [display, setDisplay] = useState([]);
  

@@ -2,7 +2,7 @@ import React  from "react";
 import NavBar from "./NavBar";
 import SneakerDisplay from "./SneakerDisplay";
 
-
+//functional App Component
 const App = () => {
     return (
         <div style={styles.container}> 

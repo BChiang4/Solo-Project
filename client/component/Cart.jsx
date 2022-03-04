@@ -1,6 +1,6 @@
 import React , {useState, useEffect} from 'react';
 
-
+// functional Cart Component
 const Cart = () => {
     // create a totalCost hook
     const [show,setShow] = useState(false);
